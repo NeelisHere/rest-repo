@@ -1,11 +1,36 @@
 name: my-workflow
 on:
-  schedule:
-    - cron: '*/5 * * * *'
+  push:
+    branches: [ main ]
 
 jobs:
   job_1:
     runs-on: ubuntu-latest
-    steps:
-      - name: Step 1
-        run: echo "This is job 1, step 1"
+    steps: [
+      {
+        name: Checkout code,
+        uses: actions/checkout@v4
+      },
+      {
+        name: Setup Node,
+        uses: actions/setup-node@v4,
+        with: {
+          node-version: '18'
+        }
+      },
+      {
+        name: check folders,
+        working-directory: ./frontend,
+        run: ls -ltr
+      },
+      {
+        name: install dependencies,
+        run: npm ci,
+        working-directory: ./frontend
+      },
+      {
+        name: check node_modules folder after dependencies installation,
+        working-directory: ./frontend/node_modules,
+        run: ls -ltr
+      }
+    ]
