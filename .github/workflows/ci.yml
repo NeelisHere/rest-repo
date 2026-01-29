@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "[DEBUG] check the env"
-        if: ${{ inputs.debug == true && github.ref == 'main' }}
+        if: ${{ inputs.debug == true }}
         run: |
           "Branch name: ${{ github.ref }}"
           "Event name: ${{ github.event_name }}"
