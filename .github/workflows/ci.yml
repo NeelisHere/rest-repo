@@ -25,9 +25,9 @@ jobs:
           STEP_VAR: "step var"
         run: |
           echo "this is feature-1 branch"
-          echo "${{ vars.OVERWRITE_VAR }}"
-          echo "${{ vars.STEP_VAR }}"
-          echo "${{ vars.JOB_VAR }}"
-          echo "${{ vars.WORKFLOW_VAR }}"
+          echo "${{ env.OVERWRITE_VAR }}"
+          echo "${{ env.STEP_VAR }}"
+          echo "${{ env.JOB_VAR }}"
+          echo "${{ env.WORKFLOW_VAR }}"
 
 
