@@ -13,11 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "[DEBUG] check the env"
-        if: ${{ 
-          inputs.debug == true && 
-          github.event_name == 'workflow_dispatch' && 
-          github.ref == 'refs/heads/main' 
-        }}
+        if: ${{ inputs.debug == true && github.event_name == 'workflow_dispatch' }}
         run: |
           echo "this is feature-1 branch"
           echo "Branch name: ${{ github.ref }}"
