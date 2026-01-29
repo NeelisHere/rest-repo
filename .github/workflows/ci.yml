@@ -1,8 +1,12 @@
 name: CI
-'on':
-  push:
-    branches:
-      - main
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: environment
+        description: "target environment"
+        required: true
+        
 jobs:
   build:
     runs-on: ubuntu-latest
