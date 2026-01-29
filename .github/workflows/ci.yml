@@ -12,10 +12,6 @@ on:
         type: environment
         description: target environment
         default: "dev"
-      project_type:
-        type: choice
-        description: project type
-        options: [ "experimental", "serious", "hobby" ]
         
 jobs:
   build:
@@ -23,7 +19,7 @@ jobs:
     environment: ${{ inputs.target_environment }}
     steps:
       - name: "[DEBUG] check the env variables for serious projects"
-        if: ${{ inputs.project_type == 'serious' }}
+        if: ${{ inputs.target_environment == 'prod' }}
         run: |
           echo "${{ vars.ENV_VAR || format('no variables found in {0} env', inputs.target_environment) }}"
           if [ -z "$ENV_SECRET" ]; then
@@ -33,7 +29,7 @@ jobs:
           fi
       
       - name: "[DEBUG] check the env variables for non-serious projects"
-        if: ${{ inputs.project_type != 'serious' }}
+        if: ${{ inputs.target_environment != 'prod' }}
         run: |
           echo "casual ci on feature-1 branch"
 
