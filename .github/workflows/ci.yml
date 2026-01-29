@@ -8,15 +8,26 @@ on:
         description: "new random checkbox"
         required: true
         default: false
+env:
+  OVERWRITE_VAR: "workflow-level"
+  WORKFLOW_VAR: "workflow var"
         
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OVERWRITE_VAR: "job-level"
+      JOB_VAR: "job var"
     steps:
       - name: "[DEBUG] check the env"
-        if: ${{ inputs.debug == true && github.event_name == 'workflow_dispatch' }}
+        env:
+          OVERWRITE_VAR: "step-level"
+          STEP_VAR: "step var"
         run: |
           echo "this is feature-1 branch"
-          echo "Branch name: ${{ github.ref }}"
-          echo "Event name: ${{ github.event_name }}"
-          echo "runner OS: ${{ runner.os }}"
+          echo "${{ vars.OVERWRITE_VAR }}"
+          echo "${{ vars.STEP_VAR }}"
+          echo "${{ vars.JOB_VAR }}"
+          echo "${{ vars.WORKFLOW_VAR }}"
+
+
