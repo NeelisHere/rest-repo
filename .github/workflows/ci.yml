@@ -1,40 +1,33 @@
 name: CI
-run-name: "CI: feature-1 | DEBUG=${{ inputs.debug && 'ON' || 'OFF' }}"
+run-name: "CI: feature-1 | DEPLOY"
 on:
   workflow_dispatch:
-    inputs:
-      debug:
-        type: boolean
-        description: "debug"
-        required: true
-        default: false
-      target_environment:
-        type: environment
-        description: target environment
-        default: "dev"
         
 jobs:
-  build:
+  prod-job-1:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.target_environment }}
+    environment: "prod"
     steps:
-      - name: "[DEBUG] check the env variables for serious projects"
-        if: ${{ inputs.target_environment == 'prod' }}
-        env: 
-          ENV_SECRET: ${{ secrets.ENV_SECRET }}
-        run: |
-          echo "${{ vars.ENV_VAR || format('no variables found in {0} env', inputs.target_environment) }}"
-          if [ -z "$ENV_SECRET" ]; then
-            echo "no secrets found"
-          else
-            echo "secret is present"
-          fi
-  build-casual:
+      - name: prod-job-1
+        run: echo "prod job-1"
+  dev-job-1:
     runs-on: ubuntu-latest
-    environment: uat
+    environment: "dev"
     steps:
-      - name: "[DEBUG] check the env variables for non-serious projects"
-        run: echo "casual ci on feature-1 branch"
+      - name: dev-job-1
+        run: echo "dev job-1"
+  prod-job-2:
+    runs-on: ubuntu-latest
+    environment: "prod"
+    steps:
+      - name: prod-job-2
+        run: echo "prod job-2"
+  prod-job-3:
+    runs-on: ubuntu-latest
+    environment: "prod"
+    steps:
+      - name: prod-job-3
+        run: echo "prod job-3"
       
       
 
