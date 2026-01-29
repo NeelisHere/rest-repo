@@ -9,12 +9,7 @@ const workflow = {
     jobs: {
         build: {
             'runs-on': 'ubuntu-latest',
-            steps: [
-                {
-                    name: "check the folders in the root directory",
-                    run: ['cd /', 'ls -ltr'].join('\n')
-                }
-            ]
+            steps: []
         }
     }
 };

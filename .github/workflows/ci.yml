@@ -4,7 +4,7 @@ on:
     inputs:
       debug:
         type: boolean
-        description: "debug"
+        description: "new random checkbox"
         required: true
         default: false
         
@@ -13,8 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "[DEBUG] check the env"
-        if: ${{ inputs.debug == true }}
+        if: ${{ 
+          inputs.debug == true && 
+          github.event_name == 'workflow_dispatch' && 
+          github.ref == 'refs/heads/main' 
+        }}
         run: |
+          echo "this is feature-1 branch"
           echo "Branch name: ${{ github.ref }}"
           echo "Event name: ${{ github.event_name }}"
           echo "runner OS: ${{ runner.os }}"
