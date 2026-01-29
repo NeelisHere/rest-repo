@@ -1,4 +1,5 @@
 name: CI
+run-name: "CI: feature-1 | DEBUG=${{ inputs.debug && 'ON' || 'OFF' }}"
 on:
   workflow_dispatch:
     inputs:
