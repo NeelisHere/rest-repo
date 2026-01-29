@@ -5,29 +5,33 @@ on:
     inputs:
       debug:
         type: boolean
-        description: "new random checkbox"
+        description: "debug"
         required: true
         default: false
-env:
-  OVERWRITE_VAR: "workflow-level"
-  WORKFLOW_VAR: "workflow var"
+      target_environment:
+        type: environment
+        description: target environment
+        default: "dev"
+      project_type:
+        type: choice
+        description: project type
+        options: [ "experimental", "serious", "hobby" ]
         
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      OVERWRITE_VAR: "job-level"
-      JOB_VAR: "job var"
+    environment: ${{ inputs.target_environment }}
     steps:
-      - name: "[DEBUG] check the env"
-        env:
-          OVERWRITE_VAR: "step-level"
-          STEP_VAR: "step var"
+      - name: "[DEBUG] check the env variables for serious projects"
+        if: ${{ inputs.project_type == 'serious' }}
         run: |
-          echo "this is feature-1 branch"
-          echo "${{ env.OVERWRITE_VAR }}"
-          echo "${{ env.STEP_VAR }}"
-          echo "${{ env.JOB_VAR }}"
-          echo "${{ env.WORKFLOW_VAR }}"
+          echo "checking variables on feature-1 branch"
+          echo "${{ vars.ENV_VAR }}"
+          echo "${{ secrets.ENV_SECRET }}"
+      
+      - name: "[DEBUG] check the env variables for non-serious projects"
+        if: ${{ inputs.project_type != 'serious' }}
+        run: |
+          echo "casual ci on feature-1 branch"
 
 
