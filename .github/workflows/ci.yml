@@ -15,6 +15,6 @@ jobs:
       - name: "[DEBUG] check the env"
         if: ${{ inputs.debug == true }}
         run: |
-          "Branch name: ${{ github.ref }}"
-          "Event name: ${{ github.event_name }}"
-          "runner OS: ${{ runner.os }}"
+          Branch name: ${{ github.ref }}
+          Event name: ${{ github.event_name }}
+          runner OS: ${{ runner.os }}
