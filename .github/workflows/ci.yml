@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: "[DEBUG] check the env variables for serious projects"
         if: ${{ inputs.target_environment == 'prod' }}
+        env: 
+          ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: |
           echo "${{ vars.ENV_VAR || format('no variables found in {0} env', inputs.target_environment) }}"
           if [ -z "$ENV_SECRET" ]; then
@@ -27,10 +29,13 @@ jobs:
           else
             echo "secret is present"
           fi
-      
+  build-casual:
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
       - name: "[DEBUG] check the env variables for non-serious projects"
-        if: ${{ inputs.target_environment != 'prod' }}
-        run: |
-          echo "casual ci on feature-1 branch"
+        run: echo "casual ci on feature-1 branch"
+      
+      
 
 
