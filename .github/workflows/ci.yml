@@ -4,7 +4,7 @@ on:
     inputs:
       debug:
         type: boolean
-        description: "target environment"
+        description: "debug"
         required: true
         default: false
         
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "[DEBUG] check the env"
-        if: ${{ inputs.debug == true && github.ref == 'refs/heads/main' }}
+        if: ${{ inputs.debug == true && github.ref == 'main' }}
         run: |
           "Branch name: ${{ github.ref }}"
           "Event name: ${{ github.event_name }}"
