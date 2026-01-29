@@ -2,16 +2,19 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      target:
-        type: environment
+      debug:
+        type: boolean
         description: "target environment"
         required: true
+        default: false
         
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: check the folders in the root directory
-        run: |-
-          cd /
-          ls -ltr
+      - name: "[DEBUG] check the env"
+        if: ${{ inputs.debug == true && github.ref == 'refs/heads/main' }}
+        run: |
+          "Branch name: ${{ github.ref }}"
+          "Event name: ${{ github.event_name }}"
+          "runner OS: ${{ runner.os }}"
