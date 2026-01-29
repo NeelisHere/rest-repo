@@ -25,9 +25,12 @@ jobs:
       - name: "[DEBUG] check the env variables for serious projects"
         if: ${{ inputs.project_type == 'serious' }}
         run: |
-          echo "checking variables on feature-1 branch"
-          echo "${{ vars.ENV_VAR }}"
-          echo "${{ secrets.ENV_SECRET }}"
+          echo "${{ vars.ENV_VAR || format('no variables found in {0} env', inputs.target_environment) }}"
+          if [ -z "$ENV_SECRET" ]; then
+            echo "no secrets found"
+          else
+            echo "secret is present"
+          fi
       
       - name: "[DEBUG] check the env variables for non-serious projects"
         if: ${{ inputs.project_type != 'serious' }}
